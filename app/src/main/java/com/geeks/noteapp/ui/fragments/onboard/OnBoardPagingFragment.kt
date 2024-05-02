@@ -5,8 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
-import androidx.viewpager2.widget.ViewPager2
 import com.geeks.noteapp.R
 import com.geeks.noteapp.databinding.FragmentOnBoardPagingBinding
 import com.geeks.noteapp.date.Pref
@@ -31,7 +29,7 @@ class OnBoardPagingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initialize()
         if(requireArguments().getInt(ARG_ON_BOARD_POSITION)==2){
-            Pref(requireContext()).isOnBoardShown=true
+            Pref(requireContext(),).isOnBoardShown=true
         }
     }
 

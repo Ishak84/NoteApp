@@ -33,9 +33,12 @@ class OnBoardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initialize()
-        setupListener()
-        btnGetStarted()
+        if (!pref.isOnBoardShown) {
+            initialize()
+            setupListener()
+        }else{
+            findNavController().navigate(OnBoardFragmentDirections.actionOnBoardFragmentToNoteFragment())
+        }
     }
 
 

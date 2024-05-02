@@ -7,7 +7,7 @@ import com.geeks.noteapp.ui.fragments.onboard.OnBoardPagingFragment
 import com.geeks.noteapp.ui.fragments.onboard.OnBoardPagingFragment.Companion.ARG_ON_BOARD_POSITION
 
 
-class OnBoardViewPagerAdapter (
+class OnBoardViewPagerAdapter   (
     fragment:Fragment
 ): FragmentStateAdapter(fragment){
     override fun getItemCount(): Int {

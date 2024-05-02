@@ -4,11 +4,14 @@ import android.content.Context
 import android.content.SharedPreferences
 
 class Pref(context: Context) {
-    private val pref: SharedPreferences =
-        context.getSharedPreferences("shared", Context.MODE_PRIVATE)
+    private val sharedPreferences: SharedPreferences = context.getSharedPreferences("shered", Context.MODE_PRIVATE)
 
-    var isOnBoardShown:Boolean
-        get() = pref.getBoolean("board", false)
-        set(value) = pref.edit().putBoolean("board", value).apply()
+
+    var title: String?
+        get() = sharedPreferences.getString("title", "")
+        set(value) = sharedPreferences.edit().putString("title", value).apply()
+
+    var isOnBoardShown: Boolean
+        get() = sharedPreferences.getBoolean("board",false)
+        set(value) = sharedPreferences.edit().putBoolean("board", value).apply()
 }
-
