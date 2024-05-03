@@ -1,5 +1,6 @@
 package com.geeks.noteapp.ui.fragments.note
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,18 +14,19 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.geeks.noteapp.App
+import com.geeks.noteapp.OnClick
 import com.geeks.noteapp.R
 import com.geeks.noteapp.databinding.FragmentNoteBinding
 import com.geeks.noteapp.date.Pref
 import com.geeks.noteapp.date.model.NoteModel
+import com.geeks.noteapp.interfaces.OnClickItem
 import com.geeks.noteapp.ui.adapter.NoteAdapter
 
-class NoteFragment : Fragment() {
+class NoteFragment : Fragment(), OnClickItem {
 
     private lateinit var binding: FragmentNoteBinding
+    private val noteAdapter = NoteAdapter(this)
     private var isGridLayout = false
-    private val noteAdapter = NoteAdapter()
-    private val list: ArrayList<NoteModel> = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,15 +38,17 @@ class NoteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.btnGridLy.setOnClickListener {
+        binding.btnCharge.setOnClickListener {
             isGridLayout = !isGridLayout
             changeRecyclerViewLayout()
         }
         setupListener()
         initialize()
         getData()
+    }
 
-
+    override fun onResume() {
+        super.onResume()
     }
 
 
@@ -61,9 +65,19 @@ class NoteFragment : Fragment() {
         }
     }
 
-    private fun setupListener() {
-        binding.btnPlus.setOnClickListener {
+    private fun setupListener() = with(binding) {
+        btnPlus.setOnClickListener {
             findNavController().navigate(R.id.action_noteFragment_to_noteDetailFragment)
+        }
+        btnCharge.setOnClickListener {
+            isGridLayout = !isGridLayout
+            val layoutManager =
+                if (isGridLayout){
+                    GridLayoutManager(requireContext(), 2)
+                }else{
+                    LinearLayoutManager(requireContext())
+                }
+            binding.rvHome.layoutManager = layoutManager
         }
     }
 
@@ -77,5 +91,18 @@ class NoteFragment : Fragment() {
         binding.rvHome.layoutManager = layoutManager
     }
 
-
+    override fun onLongClick(noteModel: NoteModel) {
+        val builder = AlertDialog.Builder(requireContext())
+        with(builder) {
+            setTitle("Вы точно хотите удалить")
+            setPositiveButton("Да") { dialog, which ->
+                App.appDataBase?.noteDao()?.deleteNote(noteModel)
+            }
+            setNegativeButton("Нет") { dialog, which ->
+                dialog.cancel()
+            }
+            show()
+        }
+        builder.create()
+    }
 }
