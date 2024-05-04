@@ -5,4 +5,5 @@
     <string name="Пропустить">Пропустить</string>
     <string name="jhbhn">Пропустить</string>
     <string name="client_id">687082923054-nu8t88u15mc10aeetntbmumoj34pgeq9.apps.googleusercontent.com</string>
+    <string name="default_notification_channel_id">com.geeks.noteapp.ui.activity</string>
 </resources>
