@@ -37,7 +37,7 @@ class OnBoardFragment : Fragment() {
             initialize()
             setupListener()
         }else{
-            findNavController().navigate(OnBoardFragmentDirections.actionOnBoardFragmentToNoteFragment())
+            findNavController().navigate(OnBoardFragmentDirections.actionOnBoardFragmentToSignUpFragment())
         }
     }
 
@@ -56,7 +56,7 @@ class OnBoardFragment : Fragment() {
         }
         binding.sendTxt.setOnClickListener {
             pref.isOnBoardShown = true
-            findNavController().navigate(R.id.noteFragment)
+            findNavController().navigate(R.id.signUpFragment)
 
         }
     }
