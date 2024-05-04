@@ -25,7 +25,7 @@ import com.geeks.noteapp.ui.adapter.NoteAdapter
 class NoteFragment : Fragment(), OnClickItem {
 
     private lateinit var binding: FragmentNoteBinding
-    private val noteAdapter = NoteAdapter(this)
+    private val noteAdapter = NoteAdapter(this, this)
     private var isGridLayout = false
 
     override fun onCreateView(
@@ -72,9 +72,9 @@ class NoteFragment : Fragment(), OnClickItem {
         btnCharge.setOnClickListener {
             isGridLayout = !isGridLayout
             val layoutManager =
-                if (isGridLayout){
+                if (isGridLayout) {
                     GridLayoutManager(requireContext(), 2)
-                }else{
+                } else {
                     LinearLayoutManager(requireContext())
                 }
             binding.rvHome.layoutManager = layoutManager
@@ -104,5 +104,10 @@ class NoteFragment : Fragment(), OnClickItem {
             show()
         }
         builder.create()
+    }
+
+    override fun onClick(noteModel: NoteModel) {
+        val action = NoteFragmentDirections.actionNoteFragmentToNoteDetailFragment(noteModel.id)
+        findNavController().navigate(action)
     }
 }

@@ -10,7 +10,7 @@ import com.geeks.noteapp.date.model.NoteModel
 import com.geeks.noteapp.interfaces.OnClickItem
 import com.geeks.noteapp.ui.fragments.note.NoteFragment
 
-class NoteAdapter(private val onLongClick: OnClickItem) : ListAdapter<NoteModel, NoteAdapter.ViewHolder>(DiffCallback()) {
+class NoteAdapter(private val onLongClick: OnClickItem, private val onClick: OnClickItem) : ListAdapter<NoteModel, NoteAdapter.ViewHolder>(DiffCallback()) {
 
     class ViewHolder(private val binding: ItemNoteBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: NoteModel?) {
@@ -24,6 +24,9 @@ class NoteAdapter(private val onLongClick: OnClickItem) : ListAdapter<NoteModel,
         holder.itemView.setOnLongClickListener{
             onLongClick.onLongClick(getItem(position))
             true
+        }
+        holder.itemView.setOnClickListener{
+            onClick.onClick(getItem(position))
         }
     }
 
